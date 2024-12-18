@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -6,10 +6,11 @@
         <LangVersion>11</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Curl</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Util\" />
+      <Folder Include="Utils\" />
     </ItemGroup>
 
 </Project>

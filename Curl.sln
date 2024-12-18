@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockApp", "StockApp\StockApp.csproj", "{025BAEC9-6F39-43ED-B0E4-542B9614CB75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curl", "Curl\Curl.csproj", "{025BAEC9-6F39-43ED-B0E4-542B9614CB75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,3 +1,3 @@
-namespace StockApp.Data;
+namespace Curl.Data;
 
 public record StockMarketer();

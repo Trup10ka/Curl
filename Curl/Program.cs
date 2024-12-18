@@ -1,4 +1,6 @@
-﻿namespace StockApp;
+using Curl.Cli;
+
+namespace Curl;
 
 internal static class Program
 {

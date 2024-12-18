@@ -1,4 +1,4 @@
-namespace StockApp;
+namespace Curl;
 
 public class StockMarket
 {

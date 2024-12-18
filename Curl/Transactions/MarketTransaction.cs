@@ -1,4 +1,4 @@
-namespace StockApp.Transaction;
+namespace Curl.Transactions;
 
 public class MarketTransaction
 {

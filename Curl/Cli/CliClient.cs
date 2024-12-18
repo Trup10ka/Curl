@@ -1,4 +1,5 @@
 using Curl.Cli.Commands;
+using Curl.Data.Commands;
 using static Curl.Cli.Commands.CommandType;
 
 namespace Curl.Cli;
@@ -23,22 +24,43 @@ public class CliClient
             var input = Console.ReadLine()?.Split(' ').ToList();
             
             if (input == null) continue;
-            
-            var command = MatchCommand(input[0]);
 
-            if (command == null)
+            if (TryMatchCommand(input[0], out var command))
             {
-                ConsoleLogger.LogError($"Unknown command: {input}");
-                continue;
+                InvokeCommand(command!, input);
             }
-            
-            input.RemoveAt(0);
-            var result = command.Execute(string.Join(' ', input));
-            
-            
-            
-            ConsoleLogger.LogInfo(result);
         }
+    }
+
+    private static void InvokeCommand(Command command, List<string> input)
+    {
+        input.RemoveAt(0);
+        var result = command.Execute(string.Join(' ', input));
+
+        if (result.Success)
+        {
+            ConsoleLogger.LogInfo(result.Result ?? string.Empty);
+        }
+        else
+        {
+            result.ErrorCallback?.Invoke();
+            ConsoleLogger.LogError(result.Result ?? string.Empty);
+        }
+    }
+    
+    private bool TryMatchCommand(string input, out Command? command)
+    {
+        var possibleCommand = MatchCommand(input);
+        
+        if (possibleCommand == null)
+        {
+            ConsoleLogger.LogWarning($"Unknown command: {input}");
+            command = null;
+            return false;
+        }
+
+        command = possibleCommand;
+        return true;
     }
     
     private Command? MatchCommand(string input)

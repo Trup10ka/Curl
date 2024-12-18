@@ -1,5 +1,5 @@
 using Curl.Cli.Commands;
-using Curl.Data.Commands;
+using static Curl.Utils.CommandUtils;
 using static Curl.Cli.Commands.CommandType;
 
 namespace Curl.Cli;
@@ -23,7 +23,7 @@ public class CliClient
             Console.Write("> ");
             var input = Console.ReadLine()?.Split(' ').ToList();
             
-            if (input == null) continue;
+            if (input == null || string.IsNullOrEmpty(input[0])) continue;
 
             if (TryMatchCommand(input[0], out var command))
             {
@@ -50,7 +50,7 @@ public class CliClient
     
     private bool TryMatchCommand(string input, out Command? command)
     {
-        var possibleCommand = MatchCommand(input);
+        var possibleCommand = MatchCommand(input, _commands);
         
         if (possibleCommand == null)
         {
@@ -62,17 +62,12 @@ public class CliClient
         command = possibleCommand;
         return true;
     }
-    
-    private Command? MatchCommand(string input)
-    {
-        var commandType = Enum.Parse<CommandType>(input, true);
-        return _commands.GetValueOrDefault(commandType);
-    }
 
     private void InitAllCommands()
     {
         var commands = new List<Command>
         {
+            new CurlCommand(CURL),
             new HelpCommand(HELP),
             new ExitCommand(EXIT)
         };

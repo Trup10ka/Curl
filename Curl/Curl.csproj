@@ -9,8 +9,4 @@
         <RootNamespace>Curl</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Utils\" />
-    </ItemGroup>
-
 </Project>

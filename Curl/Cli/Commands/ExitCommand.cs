@@ -2,18 +2,16 @@ using Curl.Data.Commands;
 
 namespace Curl.Cli.Commands;
 
-public class ExitCommand : ICommand
+public class ExitCommand : Command
 {
-    public CommandType CommandType { get; }
-    
-    public ExitCommand(CommandType commandType)
+    public ExitCommand(CommandType commandType) : base(commandType)
     {
-        CommandType = commandType;
     }
 
-    public CommandResult Execute(string argsNotParsed)
+    public override CommandResult Execute(string argsNotParsed)
     {
-        ConsoleLogger.LogError("Exiting application...");
-        return new CommandResult();
+        ConsoleLogger.LogWarning("Exiting...");
+        Environment.Exit(0);
+        return new CommandResult(string.Empty);
     }
 }

@@ -5,7 +5,7 @@ namespace Curl.Cli;
 
 public class CliClient
 {
-    private readonly Dictionary<CommandType, ICommand> _commands = new ();
+    private readonly Dictionary<CommandType, Command> _commands = new ();
     
     private bool _isRunning = true;
 
@@ -33,11 +33,15 @@ public class CliClient
             }
             
             input.RemoveAt(0);
-            command.Execute(string.Join(' ', input));
+            var result = command.Execute(string.Join(' ', input));
+            
+            
+            
+            ConsoleLogger.LogInfo(result);
         }
     }
     
-    private ICommand? MatchCommand(string input)
+    private Command? MatchCommand(string input)
     {
         var commandType = Enum.Parse<CommandType>(input, true);
         return _commands.GetValueOrDefault(commandType);
@@ -45,7 +49,7 @@ public class CliClient
 
     private void InitAllCommands()
     {
-        var commands = new List<ICommand>
+        var commands = new List<Command>
         {
             new HelpCommand(HELP),
             new ExitCommand(EXIT)

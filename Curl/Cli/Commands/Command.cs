@@ -2,19 +2,7 @@ using Curl.Data.Commands;
 
 namespace Curl.Cli.Commands;
 
-public interface ICommand<T> : ICommand
-{
-    new CommandResult<T> Execute(string argsNotParsed);
-}
-
-public interface ICommand
-{
-    CommandType CommandType { get; }
-    
-    CommandResult Execute(string argsNotParsed);
-}
-
-public abstract class Command<T> : ICommand<T>
+public abstract class Command
 {
     public CommandType CommandType { get; }
     
@@ -23,10 +11,5 @@ public abstract class Command<T> : ICommand<T>
         CommandType = commandType;
     }
 
-    public abstract CommandResult<T> Execute(string argsNotParsed);
-    
-    CommandResult ICommand.Execute(string argsNotParsed)
-    {
-        return Execute(argsNotParsed);
-    }
+    public abstract CommandResult Execute(string argsNotParsed);
 }

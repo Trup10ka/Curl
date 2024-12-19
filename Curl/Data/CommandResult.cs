@@ -1,6 +1,6 @@
 using Curl.Exceptions.Commands;
 
-namespace Curl.Data.Commands;
+namespace Curl.Data;
 
 public class CommandResult
 {

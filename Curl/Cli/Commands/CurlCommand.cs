@@ -1,4 +1,4 @@
-﻿using Curl.Data.Commands;
+﻿using Curl.Data;
 
 namespace Curl.Cli.Commands;
 
@@ -10,6 +10,6 @@ public class CurlCommand : Command
 
     public override CommandResult Execute(string argsNotParsed)
     {
-        return new CommandResult("Curl command executed");
+        return new CommandResult(result: "Not implemented yet", success: false);
     }
 }

@@ -1,6 +1,6 @@
+using Curl.Data;
 using static Curl.Cli.Commands.CommandType;
 using static Curl.Utils.CommandUtils;
-using Curl.Data.Commands;
 
 namespace Curl.Cli.Commands;
 

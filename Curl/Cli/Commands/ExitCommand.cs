@@ -1,4 +1,4 @@
-using Curl.Data.Commands;
+using Curl.Data;
 
 namespace Curl.Cli.Commands;
 

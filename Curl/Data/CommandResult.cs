@@ -1,4 +1,4 @@
-using Curl.Exceptions.Commands;
+using Curl.Exceptions;
 
 namespace Curl.Data;
 

@@ -1,4 +1,4 @@
-namespace Curl.Exceptions.Commands;
+namespace Curl.Exceptions;
 
 public class ErrorDuringCommandExecutionException : Exception
 {

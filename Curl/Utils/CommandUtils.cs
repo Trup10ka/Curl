@@ -1,6 +1,6 @@
-﻿using Curl.Cli.Commands;
+﻿namespace Curl.Utils;
 
-namespace Curl.Utils;
+using Cli.Commands;
 
 public static class CommandUtils
 {

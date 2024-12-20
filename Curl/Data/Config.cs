@@ -16,7 +16,6 @@ public class Config
     
     public override string ToString()
     {
-        // I need to return toString in JSON format
         return JsonSerializer.Serialize(this);
     }
 }

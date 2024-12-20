@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curl", "Curl\Curl.csproj", "{025BAEC9-6F39-43ED-B0E4-542B9614CB75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurlTest", "CurlTest\CurlTest.csproj", "{BEBFFB70-CF94-4B5C-BAFE-B25996CE227F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{025BAEC9-6F39-43ED-B0E4-542B9614CB75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{025BAEC9-6F39-43ED-B0E4-542B9614CB75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{025BAEC9-6F39-43ED-B0E4-542B9614CB75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEBFFB70-CF94-4B5C-BAFE-B25996CE227F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBFFB70-CF94-4B5C-BAFE-B25996CE227F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBFFB70-CF94-4B5C-BAFE-B25996CE227F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBFFB70-CF94-4B5C-BAFE-B25996CE227F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

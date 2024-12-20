@@ -9,10 +9,19 @@ public class CurlCommand : Command
     
     private readonly IArgumentsParser _argumentsParser = new StrictPairArgumentParser(canHaveNoArguments: true);
     
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CurlCommand"/> class with the specified command type.
+    /// </summary>
+    /// <param name="commandType">The type of the command (must be <see cref="CommandType.CURL"/>).</param>
     public CurlCommand(CommandType commandType) : base(commandType)
     {
     }
 
+    /// <summary>
+    /// Executes the cURL command using the specified raw arguments.
+    /// </summary>
+    /// <param name="argsNotParsed">The raw arguments as a single string.</param>
+    /// <returns>A <see cref="CommandResult"/> representing the result of the execution.</returns>
     public override CommandResult Execute(string argsNotParsed)
     {
         if (string.IsNullOrWhiteSpace(argsNotParsed))
@@ -74,6 +83,12 @@ public class CurlCommand : Command
         }
     }
     
+    /// <summary>
+    /// Sends an HTTP GET request to the specified URL and retrieves the content.
+    /// </summary>
+    /// <param name="url">The URL to send the request to.</param>
+    /// <param name="commandArguments">A dictionary containing command arguments.</param>
+    /// <returns>A task representing the asynchronous operation, containing the content as a string.</returns>
     private static async Task<string> GetContentAsync(string url, Dictionary<string, string?> commandArguments)
     {
         using var httpClient = new HttpClient();
@@ -81,6 +96,11 @@ public class CurlCommand : Command
         return await response.Content.ReadAsStringAsync();
     }
     
+    /// <summary>
+    /// Reduces the length of the content to the specified limit.
+    /// </summary>
+    /// <param name="content">The content to be reduced.</param>
+    /// <param name="limit">The maximum number of characters allowed.</param>
     private static void ReduceContent(ref string content, int limit)
     {
         if (content.Length > limit)
@@ -89,6 +109,12 @@ public class CurlCommand : Command
         }
     }
     
+    /// <summary>
+    /// Writes the fetched content to a file.
+    /// </summary>
+    /// <param name="content">The content to write.</param>
+    /// <param name="fileName">The name of the file to write to.</param>
+    /// <returns>A <see cref="CommandResult"/> indicating success or failure.</returns>
     private static CommandResult WriteOutputToFile(string content, string fileName)
     {
         try
@@ -102,6 +128,13 @@ public class CurlCommand : Command
         return new CommandResult("Content written to file");
     }
     
+    /// <summary>
+    /// Validates the parsed command arguments for known flags and proper values.
+    /// </summary>
+    /// <param name="arguments">The parsed command arguments.</param>
+    /// <exception cref="InvalidValueForArgumentException">Thrown when a flag has an invalid value.</exception>
+    /// <exception cref="UnknownArgumentException">Thrown when an unknown argument is encountered.</exception>
+
     private static void CheckValidityOfArguments(Dictionary<string, string?> arguments)
     {
         foreach (var argument in arguments)

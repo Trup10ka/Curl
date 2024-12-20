@@ -20,6 +20,13 @@ public class HelpCommand : Command
         CommandHelpMessages.Add(CURL, Config.CurlHelpText);
     }
 
+    /// <summary>
+    /// Executes the Help command and returns help information based on the provided arguments.
+    /// </summary>
+    /// <param name="argsNotParsed">The raw argument string containing the name of the command to get help for.</param>
+    /// <returns>
+    /// A <see cref="CommandResult"/> containing the appropriate help message or an error message.
+    /// </returns>
     public override CommandResult Execute(string argsNotParsed)
     {
         if (argsNotParsed == string.Empty)

@@ -9,6 +9,9 @@ using Config = Curl.Data.Config;
 using static Utils.CommandUtils;
 using static Commands.CommandType;
 
+/// <summary>
+/// Represents a command-line interface (CLI) client responsible for managing commands and user input.
+/// </summary>
 public class CliClient
 {
     private readonly Dictionary<CommandType, Command> _commands = new ();
@@ -25,6 +28,10 @@ public class CliClient
         ConsoleLogger.LogInfo("CliClient initialized");
     }
 
+    
+    /// <summary>
+    /// Starts the CLI listener, continuously listening for user input and executing commands.
+    /// </summary>
     [SuppressMessage("ReSharper", "FunctionNeverReturns")]
     public void Listen()
     {
@@ -42,6 +49,12 @@ public class CliClient
         }
     }
 
+    
+    /// <summary>
+    /// Executes a given command with the provided input arguments.
+    /// </summary>
+    /// <param name="command">The command to invoke.</param>
+    /// <param name="input">The raw input arguments provided by the user.</param>
     private static void InvokeCommand(Command command, List<string> input)
     {
         input.RemoveAt(0);
@@ -58,6 +71,14 @@ public class CliClient
         }
     }
     
+    /// <summary>
+    /// Tries to match the input string with a registered command.
+    /// </summary>
+    /// <param name="input">The input string to match.</param>
+    /// <param name="command">The matched command, if found.</param>
+    /// <returns>
+    /// <c>true</c> if a matching command is found; otherwise, <c>false</c>.
+    /// </returns>
     private bool TryMatchCommand(string input, out Command? command)
     {
         var possibleCommand = MatchCommand(input, _commands);

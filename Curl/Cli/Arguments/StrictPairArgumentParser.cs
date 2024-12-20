@@ -3,15 +3,38 @@ using Curl.Exceptions.Arguments;
 
 namespace Curl.Cli.Arguments;
 
+
+/// <summary>
+/// A strict parser for command-line arguments that enforces a flag-value pair format.
+/// </summary>
 public class StrictPairArgumentParser : IArgumentsParser
 {
     private bool CanHaveNoArguments { get; }
     
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StrictPairArgumentParser"/> class.
+    /// </summary>
+    /// <param name="canHaveNoArguments">
+    /// Specifies whether the parser allows no arguments.
+    /// <c>true</c> if commands can have no arguments; otherwise, <c>false</c>.
+    /// </param>
     public StrictPairArgumentParser(bool canHaveNoArguments)
     {
         CanHaveNoArguments = canHaveNoArguments;
     }
     
+    /// <summary>
+    /// Parses an array of command-line arguments into a strict dictionary of flags and values.
+    /// </summary>
+    /// <param name="command">The type of command being executed.</param>
+    /// <param name="args">An array of command-line arguments.</param>
+    /// <returns>
+    /// A dictionary where keys are flags (single characters) and values are their associated arguments.
+    /// </returns>
+    /// <exception cref="EmptyArgumentsException">Thrown when no arguments are provided, and <see cref="CanHaveNoArguments"/> is <c>false</c>.</exception>
+    /// <exception cref="DuplicateArgumentException">Thrown when a flag is repeated in the arguments.</exception>
+    /// <exception cref="MissingArgumentValueException">Thrown when a flag is missing its associated value.</exception>
+    /// <exception cref="UnknownArgumentException">Thrown when an invalid or unknown token is encountered.</exception>
     public Dictionary<string, string?> ParseArguments(CommandType command, string[] args)
     {
         if (args.Length == 0 && !CanHaveNoArguments)

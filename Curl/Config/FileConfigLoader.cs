@@ -35,6 +35,11 @@ public class FileConfigLoader : IConfigLoader
             throw new NullReferenceException("Config file is empty");
         }
 
+        if (string.IsNullOrEmpty(config.SimpleHelpText) || string.IsNullOrEmpty(config.CurlHelpText))
+        {
+            throw new JsonException("Config file is missing required fields");
+        }
+
         return config;
     }
     

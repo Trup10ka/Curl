@@ -7,9 +7,9 @@ using Config = Curl.Data.Config;
 public class FileConfigLoader : IConfigLoader
 {
     
-    private string FilePath { get; set; }
+    private string FilePath { get; }
     
-    public FileConfigLoader(string filePath)
+    private FileConfigLoader(string filePath)
     {
         FilePath = filePath;
     }

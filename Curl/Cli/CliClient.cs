@@ -1,24 +1,34 @@
-using Curl.Cli.Commands;
-using static Curl.Utils.CommandUtils;
-using static Curl.Cli.Commands.CommandType;
+using System.Diagnostics.CodeAnalysis;
+using Curl.Config;
 
 namespace Curl.Cli;
+
+using Commands;
+using Config = Curl.Data.Config;
+
+using static Utils.CommandUtils;
+using static Commands.CommandType;
 
 public class CliClient
 {
     private readonly Dictionary<CommandType, Command> _commands = new ();
     
-    private bool _isRunning = true;
-
+    [SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance")]
+    private readonly IConfigLoader _configLoader = FileConfigLoader.Init("config.json");
+    
+    private Config Config { get; set; } = null!;
+    
     public void Init()
     {
+        Config = _configLoader.LoadConfig();
         InitAllCommands();
         ConsoleLogger.LogInfo("CliClient initialized");
     }
 
+    [SuppressMessage("ReSharper", "FunctionNeverReturns")]
     public void Listen()
     {
-        while (_isRunning)
+        while (true)
         {
             Console.Write("> ");
             var input = Console.ReadLine()?.Split(' ').ToList();
@@ -68,7 +78,7 @@ public class CliClient
         var commands = new List<Command>
         {
             new CurlCommand(CURL),
-            new HelpCommand(HELP),
+            new HelpCommand(HELP, Config),
             new ExitCommand(EXIT)
         };
         

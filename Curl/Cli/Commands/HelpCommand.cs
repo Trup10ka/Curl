@@ -1,49 +1,30 @@
-using Curl.Data;
-using static Curl.Cli.Commands.CommandType;
-using static Curl.Utils.CommandUtils;
-
 namespace Curl.Cli.Commands;
 
+using Data;
+using static CommandType;
+using static Utils.CommandUtils;
+
+using Config = Curl.Data.Config;
 public class HelpCommand : Command
 {
-    private Dictionary<CommandType, string> _commandHelpMessages = new ()
-    { 
-        { CURL, """
-              Usage: curl <url> [options]
+    private Config Config { get; }
 
-              Options:
-              
-                -X, --request <command>  Specify request command to use
-                -d, --data <data>        HTTP POST data
-                -o, --output <file>      Write to file instead of stdout
-              """
-        }
-    };
-    
-    private const string SimpleHelpMessage = """
-                                             Curl is a command line tool for transferring data with URL syntax.
+    private string CommandHelpText { get; }
 
-                                             Available commands:
-                                             
-                                               curl - make a request to a URL
-                                                   Usage: curl <url> [options]
-                                                   
-                                               exit - exit the application
-                                               
-                                               help - display this message
-                                                   Usage: help
-                                                          help <command>
-                                             """;
+    private Dictionary<CommandType, string> CommandHelpMessages { get; }  = new();
     
-    public HelpCommand(CommandType commandType) : base(commandType)
+    public HelpCommand(CommandType commandType, Config config) : base(commandType)
     {
+        Config = config;
+        CommandHelpText = Config.SimpleHelpText;
+        CommandHelpMessages.Add(CURL, Config.CurlHelpText);
     }
 
     public override CommandResult Execute(string argsNotParsed)
     {
         if (argsNotParsed == string.Empty)
         {
-            return new CommandResult(result: SimpleHelpMessage, success: true);
+            return new CommandResult(result: CommandHelpText, success: true);
         }
         
         var args = argsNotParsed.Split(' ');
@@ -55,7 +36,7 @@ public class HelpCommand : Command
         var command = MatchCommandType(args[0]);
         return command switch
         {
-            CURL => new CommandResult(result: _commandHelpMessages[CURL], success: true),
+            CURL => new CommandResult(result: CommandHelpMessages[CURL], success: true),
             _ => new CommandResult(result: $"Invalid argument for called command: '{args[0]}'", success: false)
         };
     }

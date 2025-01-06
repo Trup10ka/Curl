@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Curl.Data;
 
 namespace Curl.Config;
 
@@ -28,7 +29,7 @@ public class FileConfigLoader : IConfigLoader
     {
         var fileContent = File.ReadAllText(FilePath);
 
-        var config = JsonSerializer.Deserialize<Config>(fileContent);
+        var config = JsonSerializer.Deserialize<Config>(fileContent, CurlJsonContext.Default.Config);
 
         if (config == null)
         {

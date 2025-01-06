@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Curl.Data;
 
@@ -18,4 +19,9 @@ public class Config
     {
         return JsonSerializer.Serialize(this);
     }
+}
+
+[JsonSerializable(typeof(Config))]
+public partial class CurlJsonContext : JsonSerializerContext
+{
 }

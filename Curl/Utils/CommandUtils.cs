@@ -18,13 +18,17 @@ public static class CommandUtils
     /// <returns>
     /// A <see cref="Command"/> object if the input matches a known command; otherwise, <c>null</c>.
     /// </returns>
-    /// <exception cref="ArgumentException">
-    /// Thrown if <paramref name="input"/> cannot be parsed into a valid <see cref="CommandType"/>.
-    /// </exception>
     public static Command? MatchCommand(string input, Dictionary<CommandType, Command> commands)
     {
-        var commandType = Enum.Parse<CommandType>(input, true);
-        return commands.GetValueOrDefault(commandType);
+        try
+        {
+            var type = MatchCommandType(input);
+            return type.HasValue ? commands[type.Value] : null;
+        }
+        catch (KeyNotFoundException)
+        {
+            return null;
+        }
     }
     
     /// <summary>
